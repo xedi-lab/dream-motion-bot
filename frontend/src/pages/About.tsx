@@ -43,16 +43,24 @@ export function About({ config }: Props) {
           <span className={styles.statValue}>{hours}</span>
           <span className={styles.statLabel}>Режим работы</span>
         </div>
-        <div className={styles.statDivider} />
-        <div className={styles.stat}>
-          <span className={styles.statValue}>{priceStr}</span>
-          <span className={styles.statLabel}>Цена за час</span>
-        </div>
-        <div className={styles.statDivider} />
-        <div className={styles.stat}>
-          <span className={styles.statValue}>{priceEngStr}</span>
-          <span className={styles.statLabel}>С режиссёром</span>
-        </div>
+        {priceStr !== '—' && (
+          <>
+            <div className={styles.statDivider} />
+            <div className={styles.stat}>
+              <span className={styles.statValue}>{priceStr}</span>
+              <span className={styles.statLabel}>Цена за час</span>
+            </div>
+          </>
+        )}
+        {priceEngStr !== '—' && (
+          <>
+            <div className={styles.statDivider} />
+            <div className={styles.stat}>
+              <span className={styles.statValue}>{priceEngStr}</span>
+              <span className={styles.statLabel}>С режиссёром</span>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Address */}
