@@ -19,7 +19,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     })
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
-    throw new Error(`Сеть: ${msg} (initData: ${_initData ? _initData.length + 'б' : 'пусто'})`)
+    throw new Error(`Сеть: ${msg} | url: ${BASE}${path} | initData: ${_initData ? _initData.length + 'б' : 'пусто'}`)
   }
 
   if (!res.ok) {
