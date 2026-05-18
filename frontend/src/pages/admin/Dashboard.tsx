@@ -123,7 +123,7 @@ function BookingRow({ b, formatDate, fmt }: { b: BookingOut; formatDate: (s: str
       </div>
       <div className={styles.bookingInfo}>
         <p className={styles.bookingUser}>{username}</p>
-        <p className={styles.bookingMeta}>{b.phone} · {b.duration_hours}ч · {b.with_engineer ? 'со звукарём' : 'без'}</p>
+        <p className={styles.bookingMeta}>{b.phone} · {b.duration_hours}ч · {b.with_engineer ? 'со звукорежиссёром' : 'без'}</p>
         <p className={styles.bookingPrice}>{Number(b.total_price).toLocaleString('ru-RU')} ₽</p>
       </div>
     </div>

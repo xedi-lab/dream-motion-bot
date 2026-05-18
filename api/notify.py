@@ -33,7 +33,7 @@ async def notify_admins_new_booking(booking: Booking, admin_ids: list[int]) -> N
     slot = booking.slot
     user = booking.user
     username = f"@{user.username}" if user.username else user.first_name or "—"
-    engineer = "со звукарём" if booking.with_engineer else "без звукаря"
+    engineer = "со звукорежиссёром" if booking.with_engineer else "без звукорежиссёра"
 
     text = (
         f"🎙 <b>Новая заявка #{booking.id}</b>\n\n"
@@ -51,7 +51,7 @@ async def notify_admins_new_booking(booking: Booking, admin_ids: list[int]) -> N
 
 async def notify_client_status(booking: Booking) -> None:
     slot = booking.slot
-    engineer = "со звукарём" if booking.with_engineer else "без звукаря"
+    engineer = "со звукорежиссёром" if booking.with_engineer else "без звукорежиссёра"
 
     if booking.status == BookingStatus.approved:
         text = (
@@ -59,7 +59,7 @@ async def notify_client_status(booking: Booking) -> None:
             f"📅 {_format_date(slot)}, {slot.start_time.strftime('%H:%M')}–{slot.end_time.strftime('%H:%M')}\n"
             f"⏱ {booking.duration_hours} ч — {engineer}\n"
             f"💰 {booking.total_price} ₽\n\n"
-            f"Ждём тебя в <b>Dream Motion</b>!"
+            f"Ждём тебя на <b>Dream Motion</b>!"
         )
     elif booking.status == BookingStatus.rejected:
         comment = f"\n\nПричина: {booking.admin_comment}" if booking.admin_comment else ""

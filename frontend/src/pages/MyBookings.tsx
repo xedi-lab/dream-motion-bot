@@ -68,7 +68,7 @@ export function MyBookings() {
               <span className={styles.time}>{fmt(b.slot.start_time)}</span>
             </div>
             <div className={styles.info}>
-              <p className={styles.duration}>{b.duration_hours} ч · {b.with_engineer ? 'со звукарём' : 'без звукаря'}</p>
+              <p className={styles.duration}>{b.duration_hours} ч · {b.with_engineer ? 'со звукорежиссёром' : 'без звукорежиссёра'}</p>
               <p className={styles.price}>{Number(b.total_price).toLocaleString('ru-RU')} ₽</p>
             </div>
             <span className={styles.badge} style={{ color: STATUS_COLOR[b.status] }}>
