@@ -2,7 +2,7 @@ import hashlib
 import hmac
 import json
 import os
-from urllib.parse import unquote
+from urllib.parse import parse_qsl
 
 from fastapi import Depends, Header, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,32 +15,32 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 
 def verify_telegram_init_data(init_data: str) -> dict:
     """Validate Telegram Mini App initData and return parsed user dict."""
-    parsed = {}
-    data_check_string_parts = []
+    pairs = parse_qsl(init_data, keep_blank_values=True)
 
-    for part in unquote(init_data).split("&"):
-        if "=" not in part:
-            continue
-        key, value = part.split("=", 1)
+    received_hash = None
+    data_check_parts = []
+    user_json = "{}"
+
+    for key, value in pairs:
         if key == "hash":
-            parsed["hash"] = value
+            received_hash = value
         else:
-            data_check_string_parts.append(f"{key}={value}")
-            parsed[key] = value
+            data_check_parts.append(f"{key}={value}")
+            if key == "user":
+                user_json = value
 
-    if "hash" not in parsed:
+    if received_hash is None:
         raise HTTPException(status_code=401, detail="Missing hash")
 
-    data_check_string_parts.sort()
-    data_check_string = "\n".join(data_check_string_parts)
+    data_check_parts.sort()
+    data_check_string = "\n".join(data_check_parts)
 
     secret_key = hmac.new(b"WebAppData", BOT_TOKEN.encode(), hashlib.sha256).digest()
     computed = hmac.new(secret_key, data_check_string.encode(), hashlib.sha256).hexdigest()
 
-    if not hmac.compare_digest(computed, parsed["hash"]):
+    if not hmac.compare_digest(computed, received_hash):
         raise HTTPException(status_code=401, detail="Invalid initData signature")
 
-    user_json = parsed.get("user", "{}")
     return json.loads(user_json)
 
 

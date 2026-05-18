@@ -105,32 +105,41 @@
 .statusBadge[data-status='cancelled'] { color: var(--text-secondary); }
 
 /* ── Slot manager ── */
-.formGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.formStack {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.timeRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .formLabel {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   font-size: 12px;
+  font-weight: 600;
   color: var(--text-secondary);
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .formInput {
-  padding: 9px 10px;
+  padding: 12px 14px;
   background: var(--surface-hover);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text);
   font-family: inherit;
   outline: none;
   width: 100%;
+  -webkit-appearance: none;
 }
 .formInput:focus { border-color: var(--accent); }
 

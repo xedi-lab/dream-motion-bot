@@ -135,7 +135,7 @@ export default function App() {
           theme={theme}
           onToggleTheme={toggleTheme}
           onBack={() => setPage('home')}
-          title={page === 'admin-dashboard' ? 'Заявки' : 'Слоты'}
+          title={page === 'admin-dashboard' ? 'Заявки' : 'Окна'}
         />
         <div className={styles.adminTabs}>
           <button
@@ -145,7 +145,7 @@ export default function App() {
           <button
             className={[styles.tab, page === 'admin-slots' ? styles.tabActive : ''].join(' ')}
             onClick={() => setPage('admin-slots')}
-          >Слоты</button>
+          >Окна</button>
         </div>
         <div className="page-content">
           {page === 'admin-dashboard' && <Dashboard />}

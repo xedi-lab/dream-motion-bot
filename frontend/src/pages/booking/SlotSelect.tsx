@@ -38,7 +38,7 @@ export function SlotSelect({ date, onSelect }: Props) {
       <p className={styles.sublabel}>{formatDate(date)}</p>
 
       {slots.length === 0 ? (
-        <p className={styles.empty}>На эту дату нет свободных слотов.</p>
+        <p className={styles.empty}>На эту дату нет свободных окон.</p>
       ) : (
         <div className={styles.slotGrid}>
           {slots.map(slot => (

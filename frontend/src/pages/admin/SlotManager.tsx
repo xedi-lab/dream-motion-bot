@@ -20,7 +20,6 @@ export function SlotManager() {
   const [slots, setSlots] = useState<SlotOut[]>([])
   const [loading, setLoading] = useState(true)
 
-  // New slot form
   const [date, setDate] = useState(today)
   const [startTime, setStartTime] = useState('10:00')
   const [endTime, setEndTime] = useState('14:00')
@@ -59,7 +58,6 @@ export function SlotManager() {
 
   if (loading) return <Loader />
 
-  // Group by date
   const grouped = slots.reduce<Record<string, SlotOut[]>>((acc, s) => {
     ;(acc[s.date] ??= []).push(s)
     return acc
@@ -67,22 +65,23 @@ export function SlotManager() {
 
   return (
     <div className={styles.section + ' fade-in'}>
-      {/* Add slot form */}
       <Card>
-        <p className={styles.groupLabel} style={{ marginBottom: 12 }}>Добавить слот</p>
-        <div className={styles.formGrid}>
+        <p className={styles.groupLabel} style={{ marginBottom: 14 }}>Добавить окно</p>
+        <div className={styles.formStack}>
           <label className={styles.formLabel}>
             Дата
             <input type="date" className={styles.formInput} value={date} min={today} onChange={e => setDate(e.target.value)} />
           </label>
-          <label className={styles.formLabel}>
-            Начало
-            <input type="time" className={styles.formInput} value={startTime} onChange={e => setStartTime(e.target.value)} />
-          </label>
-          <label className={styles.formLabel}>
-            Конец
-            <input type="time" className={styles.formInput} value={endTime} onChange={e => setEndTime(e.target.value)} />
-          </label>
+          <div className={styles.timeRow}>
+            <label className={styles.formLabel}>
+              Начало
+              <input type="time" className={styles.formInput} value={startTime} onChange={e => setStartTime(e.target.value)} />
+            </label>
+            <label className={styles.formLabel}>
+              Конец
+              <input type="time" className={styles.formInput} value={endTime} onChange={e => setEndTime(e.target.value)} />
+            </label>
+          </div>
         </div>
         {error && <p className={styles.errorMsg}>{error}</p>}
         <Button fullWidth loading={creating} onClick={handleCreate} className={styles.addBtn}>
@@ -90,7 +89,6 @@ export function SlotManager() {
         </Button>
       </Card>
 
-      {/* Slots list */}
       {Object.keys(grouped).sort().map(d => (
         <div key={d}>
           <p className={styles.groupLabel}>{formatDate(d)}</p>
@@ -99,7 +97,7 @@ export function SlotManager() {
               <div className={styles.slotRow}>
                 <span className={styles.slotTime}>{fmt(slot.start_time)} – {fmt(slot.end_time)}</span>
                 <span className={[styles.slotStatus, slot.is_available ? styles.avail : styles.unavail].join(' ')}>
-                  {slot.is_available ? 'Свободен' : 'Занят'}
+                  {slot.is_available ? 'Свободно' : 'Занято'}
                 </span>
                 <div className={styles.slotActions}>
                   <button className={styles.iconBtn} onClick={() => handleToggle(slot.id)} title="Переключить">
@@ -122,7 +120,7 @@ export function SlotManager() {
       ))}
 
       {slots.length === 0 && (
-        <p className={styles.empty}>Слотов нет. Добавьте первый.</p>
+        <p className={styles.empty}>Окон нет. Добавьте первое.</p>
       )}
     </div>
   )
