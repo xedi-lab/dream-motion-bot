@@ -38,18 +38,20 @@ export default function App() {
 
     const fallbackConfig = { studio_name: 'Dream Motion', city: 'Санкт-Петербург', currency: '₽', min_session_hours: 1, price_per_hour: 1000, price_per_hour_with_engineer: 1500, working_hours: { from: 10, to: 23 }, admin_ids: [] }
 
-    api.getConfig()
-      .then(cfg => {
-        setConfig(cfg)
-        // Check admin by Telegram ID against config (works even if /users/me fails)
-        if (tgUser && cfg.admin_ids.includes(tgUser.id)) setIsAdmin(true)
-      })
-      .catch(() => setConfig(fallbackConfig))
+    Promise.allSettled([api.getConfig(), api.getMe()]).then(([cfgRes, meRes]) => {
+      const cfg = cfgRes.status === 'fulfilled' ? cfgRes.value : fallbackConfig
+      setConfig(cfg)
 
-    api.getMe()
-      .then(user => { setMe(user); if (user.is_admin) setIsAdmin(true) })
-      .catch(() => {})
-      .finally(() => setLoading(false))
+      if (meRes.status === 'fulfilled') {
+        setMe(meRes.value)
+        if (meRes.value.is_admin) setIsAdmin(true)
+      }
+
+      // Fallback: check admin_ids from config against Telegram user ID
+      if (tgUser && cfg.admin_ids.includes(tgUser.id)) setIsAdmin(true)
+
+      setLoading(false)
+    })
   }, [])
 
   if (loading) return <div className={styles.fullLoader}><Loader /></div>
