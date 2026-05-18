@@ -11,6 +11,7 @@ import { Options } from './pages/booking/Options'
 import { PhoneInput } from './pages/booking/PhoneInput'
 import { Summary } from './pages/booking/Summary'
 import { MyBookings } from './pages/MyBookings'
+import { About } from './pages/About'
 import { Dashboard } from './pages/admin/Dashboard'
 import { SlotManager } from './pages/admin/SlotManager'
 import type { BookingDraft, BookingStep, Page, StudioConfig, UserOut } from './types'
@@ -26,6 +27,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   const [page, setPage] = useState<Page>('home')
+  const [homeTab, setHomeTab] = useState<'book' | 'about'>('book')
   const [bookingStep, setBookingStep] = useState<BookingStep>('date')
   const [draft, setDraft] = useState<BookingDraft>({
     date: null, slot: null, durationHours: 1, withEngineer: false, phone: '',
@@ -173,31 +175,49 @@ export default function App() {
   return (
     <div className="page">
       <Header theme={theme} onToggleTheme={toggleTheme} />
-      <div className={styles.homeContent}>
-        <div className={styles.hero}>
-          <p className={styles.heroLabel}>Студия звукозаписи</p>
-          <h1 className={styles.heroTitle}>DREAM<br />MOTION</h1>
-          {config?.city && <p className={styles.heroCity}>{config.city}</p>}
-        </div>
 
-        <div className={styles.homeActions}>
-          {firstName && <p className={styles.greeting}>Привет, {firstName}</p>}
-
-          <Button fullWidth onClick={() => setPage('booking')}>
-            Забронировать
-          </Button>
-
-          <Button fullWidth variant="secondary" onClick={() => setPage('my-bookings')}>
-            Мои заявки
-          </Button>
-
-          {isAdmin && (
-            <Button fullWidth variant="ghost" onClick={() => setPage('admin-dashboard')}>
-              Панель управления
-            </Button>
-          )}
-        </div>
+      <div className={styles.homeTabs}>
+        <button
+          className={[styles.homeTab, homeTab === 'book' ? styles.homeTabActive : ''].join(' ')}
+          onClick={() => setHomeTab('book')}
+        >Бронирование</button>
+        <button
+          className={[styles.homeTab, homeTab === 'about' ? styles.homeTabActive : ''].join(' ')}
+          onClick={() => setHomeTab('about')}
+        >О студии</button>
       </div>
+
+      {homeTab === 'book' ? (
+        <div className={styles.homeContent}>
+          <div className={styles.hero}>
+            <p className={styles.heroLabel}>Студия звукозаписи</p>
+            <h1 className={styles.heroTitle}>DREAM<br />MOTION</h1>
+            {config?.city && <p className={styles.heroCity}>{config.city}</p>}
+          </div>
+
+          <div className={styles.homeActions}>
+            {firstName && <p className={styles.greeting}>Привет, {firstName}</p>}
+
+            <Button fullWidth onClick={() => setPage('booking')}>
+              Забронировать
+            </Button>
+
+            <Button fullWidth variant="secondary" onClick={() => setPage('my-bookings')}>
+              Мои заявки
+            </Button>
+
+            {isAdmin && (
+              <Button fullWidth variant="ghost" onClick={() => setPage('admin-dashboard')}>
+                Панель управления
+              </Button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="page-content">
+          <About config={config!} />
+        </div>
+      )}
     </div>
   )
 }

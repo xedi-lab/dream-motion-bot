@@ -9,6 +9,9 @@ export type BookingStatus = 'pending' | 'approved' | 'rejected' | 'cancelled'
 export interface StudioConfig {
   studio_name: string
   city: string
+  address?: string
+  about?: string
+  features?: string[]
   currency: string
   min_session_hours: number
   price_per_hour: number

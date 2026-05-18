@@ -97,6 +97,30 @@
   margin-bottom: 16px;
 }
 
+/* ── Home tabs ── */
+.homeTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.homeTab {
+  flex: 1;
+  padding: 13px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.homeTabActive {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
 /* ── Admin tabs ── */
 .adminTabs {
   display: flex;

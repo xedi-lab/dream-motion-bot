@@ -98,6 +98,10 @@ class BookingStatusUpdate(BaseModel):
 
 class StudioConfig(BaseModel):
     studio_name: str
+    city: str = ""
+    address: Optional[str] = None
+    about: Optional[str] = None
+    features: Optional[list[str]] = None
     currency: str
     min_session_hours: float
     price_per_hour: float
