@@ -22,6 +22,7 @@ export default function App() {
 
   const [config, setConfig] = useState<StudioConfig | null>(null)
   const [me, setMe] = useState<UserOut | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const [page, setPage] = useState<Page>('home')
@@ -35,12 +36,19 @@ export default function App() {
     tg?.expand()
     setInitData(initData)
 
-    Promise.all([api.getConfig(), api.getMe()])
-      .then(([cfg, user]) => { setConfig(cfg); setMe(user) })
-      .catch(() => {
-        // Dev fallback when API is not running
-        setConfig({ studio_name: 'Dream Motion', city: 'Санкт-Петербург', currency: '₽', min_session_hours: 1, price_per_hour: 1000, price_per_hour_with_engineer: 1500, working_hours: { from: 10, to: 23 }, admin_ids: [] })
+    const fallbackConfig = { studio_name: 'Dream Motion', city: 'Санкт-Петербург', currency: '₽', min_session_hours: 1, price_per_hour: 1000, price_per_hour_with_engineer: 1500, working_hours: { from: 10, to: 23 }, admin_ids: [] }
+
+    api.getConfig()
+      .then(cfg => {
+        setConfig(cfg)
+        // Check admin by Telegram ID against config (works even if /users/me fails)
+        if (tgUser && cfg.admin_ids.includes(tgUser.id)) setIsAdmin(true)
       })
+      .catch(() => setConfig(fallbackConfig))
+
+    api.getMe()
+      .then(user => { setMe(user); if (user.is_admin) setIsAdmin(true) })
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 
@@ -180,7 +188,7 @@ export default function App() {
             Мои заявки
           </Button>
 
-          {me?.is_admin && (
+          {isAdmin && (
             <Button fullWidth variant="ghost" onClick={() => setPage('admin-dashboard')}>
               Панель управления
             </Button>
