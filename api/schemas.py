@@ -56,6 +56,7 @@ class BookingCreate(BaseModel):
     with_engineer: bool
     duration_hours: Decimal
     phone: str
+    chosen_start_time: Optional[time] = None
 
     @field_validator("duration_hours")
     @classmethod
@@ -81,6 +82,7 @@ class BookingOut(BaseModel):
     total_price: Decimal
     phone: str
     status: BookingStatus
+    chosen_start_time: Optional[time]
     admin_comment: Optional[str]
     created_at: datetime
     user: UserOut

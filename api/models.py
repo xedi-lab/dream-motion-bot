@@ -62,6 +62,7 @@ class Booking(Base):
         default=BookingStatus.pending,
         nullable=False
     )
+    chosen_start_time = Column(Time, nullable=True)
     admin_comment = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

@@ -61,6 +61,7 @@ async def create_booking(
         duration_hours=data.duration_hours,
         total_price=total_price,
         phone=data.phone,
+        chosen_start_time=data.chosen_start_time,
         status=BookingStatus.pending,
     )
     db.add(booking)
@@ -152,10 +153,29 @@ async def cancel_booking(
     booking = result.scalar_one_or_none()
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
-    if booking.status == BookingStatus.approved:
-        raise HTTPException(status_code=400, detail="Cannot cancel an approved booking, contact admin")
+    if booking.status not in (BookingStatus.pending, BookingStatus.approved):
+        raise HTTPException(status_code=400, detail="Cannot cancel this booking")
 
     booking.status = BookingStatus.cancelled
     slot = await db.get(TimeSlot, booking.slot_id)
     if slot:
         slot.is_available = True
+
+
+@router.delete("/{booking_id}/admin", status_code=status.HTTP_204_NO_CONTENT)
+async def admin_delete_booking(
+    booking_id: int,
+    current_user: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(select(Booking).where(Booking.id == booking_id))
+    booking = result.scalar_one_or_none()
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+
+    if booking.status in (BookingStatus.pending, BookingStatus.approved):
+        slot = await db.get(TimeSlot, booking.slot_id)
+        if slot:
+            slot.is_available = True
+
+    await db.delete(booking)

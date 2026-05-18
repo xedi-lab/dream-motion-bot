@@ -30,7 +30,7 @@ export default function App() {
   const [homeTab, setHomeTab] = useState<'book' | 'about'>('book')
   const [bookingStep, setBookingStep] = useState<BookingStep>('date')
   const [draft, setDraft] = useState<BookingDraft>({
-    date: null, slot: null, durationHours: 1, withEngineer: false, phone: '',
+    date: null, slot: null, durationHours: 1, withEngineer: false, phone: '', startTime: null, endTime: null,
   })
 
   useEffect(() => {
@@ -95,8 +95,8 @@ export default function App() {
             <Options
               slot={draft.slot!}
               config={config!}
-              onNext={(durationHours, withEngineer) => {
-                setDraft(d => ({ ...d, durationHours, withEngineer }))
+              onNext={(durationHours, withEngineer, startTime, endTime) => {
+                setDraft(d => ({ ...d, durationHours, withEngineer, startTime, endTime }))
                 setBookingStep('phone')
               }}
             />
@@ -119,7 +119,7 @@ export default function App() {
               <div className={styles.doneIcon}>✓</div>
               <h2 className={styles.doneTitle}>Заявка отправлена!</h2>
               <p className={styles.doneSub}>Мы рассмотрим её и уведомим тебя в Telegram</p>
-              <Button fullWidth onClick={() => { setPage('home'); setBookingStep('date'); setDraft({ date: null, slot: null, durationHours: 1, withEngineer: false, phone: '' }) }}>
+              <Button fullWidth onClick={() => { setPage('home'); setBookingStep('date'); setDraft({ date: null, slot: null, durationHours: 1, withEngineer: false, phone: '', startTime: null, endTime: null }) }}>
                 На главную
               </Button>
             </div>

@@ -89,3 +89,27 @@
   font-size: 13px;
   padding: 8px;
 }
+
+.confirmBlock {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.confirmText {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirmBtn {
+  flex: 1;
+  font-size: 13px;
+  padding: 8px;
+}

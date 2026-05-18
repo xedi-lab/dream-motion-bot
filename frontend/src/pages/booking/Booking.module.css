@@ -212,6 +212,44 @@
   color: var(--text);
 }
 
+/* ── Time range ── */
+.timeRange {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.timeField {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.timeFieldLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.timeRangeSep {
+  font-size: 18px;
+  color: var(--text-secondary);
+  padding-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.durationHint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 10px;
+}
+
 /* ── Phone ── */
 .inputWrap {
   display: flex;

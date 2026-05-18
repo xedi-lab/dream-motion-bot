@@ -35,11 +35,15 @@ async def notify_admins_new_booking(booking: Booking, admin_ids: list[int]) -> N
     username = f"@{user.username}" if user.username else user.first_name or "—"
     engineer = "со звукорежиссёром" if booking.with_engineer else "без звукорежиссёра"
 
+    start = booking.chosen_start_time or slot.start_time
+    end_h = start.hour + int(booking.duration_hours)
+    end_display = f"{end_h:02d}:{start.minute:02d}"
+
     text = (
         f"🎙 <b>Новая заявка #{booking.id}</b>\n\n"
         f"👤 {username}\n"
         f"📞 {booking.phone}\n"
-        f"📅 {_format_date(slot)}, {slot.start_time.strftime('%H:%M')}–{slot.end_time.strftime('%H:%M')}\n"
+        f"📅 {_format_date(slot)}, {start.strftime('%H:%M')}–{end_display}\n"
         f"⏱ {booking.duration_hours} ч — {engineer}\n"
         f"💰 {booking.total_price} ₽\n\n"
         f"Подтвердите или отклоните в панели управления."

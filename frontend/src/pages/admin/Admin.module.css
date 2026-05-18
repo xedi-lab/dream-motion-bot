@@ -190,3 +190,17 @@
 }
 .iconBtn:hover { background: var(--surface-hover); color: var(--text); }
 .iconBtnDanger:hover { color: var(--danger) !important; }
+
+.historyFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.deleteBtn {
+  font-size: 12px;
+  padding: 4px 10px;
+  color: var(--danger) !important;
+  opacity: 0.7;
+}

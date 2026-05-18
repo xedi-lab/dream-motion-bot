@@ -28,9 +28,13 @@ export function Summary({ draft, config, onDone }: Props) {
     ? config.price_per_hour_with_engineer
     : config.price_per_hour)
 
+  const timeStr = draft.startTime && draft.endTime
+    ? `${draft.startTime.slice(0, 5)} – ${draft.endTime.slice(0, 5)}`
+    : `${fmt(slot.start_time)} – ${fmt(slot.end_time)}`
+
   const rows = [
     { label: 'Дата', value: formatDate(draft.date!) },
-    { label: 'Время', value: `${fmt(slot.start_time)} – ${fmt(slot.end_time)}` },
+    { label: 'Время', value: timeStr },
     { label: 'Длительность', value: `${draft.durationHours} ч` },
     { label: 'Звукорежиссёр', value: draft.withEngineer ? 'Да' : 'Нет' },
     { label: 'Телефон', value: draft.phone },
@@ -45,6 +49,7 @@ export function Summary({ draft, config, onDone }: Props) {
         with_engineer: draft.withEngineer,
         duration_hours: draft.durationHours,
         phone: draft.phone,
+        chosen_start_time: draft.startTime ?? undefined,
       })
       onDone()
     } catch (e: unknown) {

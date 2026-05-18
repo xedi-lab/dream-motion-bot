@@ -46,6 +46,7 @@ export interface BookingOut {
   total_price: number
   phone: string
   status: BookingStatus
+  chosen_start_time: string | null
   admin_comment: string | null
   created_at: string
   user: UserOut
@@ -58,4 +59,6 @@ export interface BookingDraft {
   durationHours: number
   withEngineer: boolean
   phone: string
+  startTime: string | null
+  endTime: string | null
 }

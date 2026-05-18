@@ -26,6 +26,7 @@ export function Dashboard() {
   const [actionId, setActionId] = useState<number | null>(null)
   const [comment, setComment] = useState('')
   const [commentFor, setCommentFor] = useState<number | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
   useEffect(() => {
     api.getAllBookings().then(setBookings).finally(() => setLoading(false))
@@ -33,6 +34,16 @@ export function Dashboard() {
 
   const pending = bookings.filter(b => b.status === 'pending')
   const rest = bookings.filter(b => b.status !== 'pending')
+
+  const handleDelete = async (id: number) => {
+    setDeletingId(id)
+    try {
+      await api.deleteBookingAdmin(id)
+      setBookings(b => b.filter(x => x.id !== id))
+    } finally {
+      setDeletingId(null)
+    }
+  }
 
   const handleAction = async (id: number, status: 'approved' | 'rejected') => {
     setActionId(id)
@@ -91,6 +102,14 @@ export function Dashboard() {
                   Одобрить
                 </Button>
               </div>
+              <Button
+                variant="ghost"
+                className={styles.deleteBtn}
+                loading={deletingId === b.id}
+                onClick={() => handleDelete(b.id)}
+              >
+                Удалить запись
+              </Button>
             </Card>
           ))}
         </>
@@ -102,9 +121,19 @@ export function Dashboard() {
           {rest.map(b => (
             <Card key={b.id}>
               <BookingRow b={b} formatDate={formatDate} fmt={fmt} />
-              <span className={styles.statusBadge} data-status={b.status}>
-                {STATUS_LABEL[b.status]}
-              </span>
+              <div className={styles.historyFooter}>
+                <span className={styles.statusBadge} data-status={b.status}>
+                  {STATUS_LABEL[b.status]}
+                </span>
+                <Button
+                  variant="ghost"
+                  className={styles.deleteBtn}
+                  loading={deletingId === b.id}
+                  onClick={() => handleDelete(b.id)}
+                >
+                  Удалить
+                </Button>
+              </div>
             </Card>
           ))}
         </>

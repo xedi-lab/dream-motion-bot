@@ -65,6 +65,7 @@ export const api = {
     with_engineer: boolean
     duration_hours: number
     phone: string
+    chosen_start_time?: string
   }) => request<BookingOut>('/bookings', { method: 'POST', body: JSON.stringify(data) }),
 
   getMyBookings: () => request<BookingOut[]>('/bookings/my'),
@@ -79,4 +80,7 @@ export const api = {
 
   cancelBooking: (id: number) =>
     request<void>(`/bookings/${id}`, { method: 'DELETE' }),
+
+  deleteBookingAdmin: (id: number) =>
+    request<void>(`/bookings/${id}/admin`, { method: 'DELETE' }),
 }
