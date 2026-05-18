@@ -44,12 +44,21 @@ def verify_telegram_init_data(init_data: str) -> dict:
     return json.loads(user_json)
 
 
+def _load_admin_ids() -> list[int]:
+    try:
+        with open(os.getenv("CONFIG_PATH", "config.json"), "r") as f:
+            return json.load(f).get("admin_ids", [])
+    except Exception:
+        return []
+
+
 async def get_current_user(
     x_init_data: str = Header(..., alias="X-Init-Data"),
     db: AsyncSession = Depends(get_db),
 ) -> User:
     tg_user = verify_telegram_init_data(x_init_data)
     user_id = int(tg_user["id"])
+    is_admin = user_id in _load_admin_ids()
 
     user = await db.get(User, user_id)
     if not user:
@@ -57,8 +66,12 @@ async def get_current_user(
             id=user_id,
             username=tg_user.get("username"),
             first_name=tg_user.get("first_name"),
+            is_admin=is_admin,
         )
         db.add(user)
+        await db.flush()
+    elif is_admin and not user.is_admin:
+        user.is_admin = True
         await db.flush()
 
     return user
