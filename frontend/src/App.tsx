@@ -191,11 +191,6 @@ export default function App() {
             Мои заявки
           </Button>
 
-          {/* DEBUG — удалить после проверки */}
-          <p style={{fontSize:11,color:'var(--text-secondary)',textAlign:'center'}}>
-            tgId: {tgUser?.id ?? 'null'} | admin_ids: {config?.admin_ids?.join(',') ?? 'null'} | isAdmin: {String(isAdmin)}
-          </p>
-
           {isAdmin && (
             <Button fullWidth variant="ghost" onClick={() => setPage('admin-dashboard')}>
               Панель управления
