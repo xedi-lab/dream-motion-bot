@@ -42,7 +42,7 @@ export function SlotSelect({ date, onSelect }: Props) {
       ) : (
         <div className={styles.slotGrid}>
           {slots.map(slot => (
-            <Card key={slot.id} clickable onClick={() => onSelect(slot)}>
+            <Card key={slot.id} onClick={() => onSelect(slot)}>
               <div className={styles.slotTime}>
                 {fmt(slot.start_time)} – {fmt(slot.end_time)}
               </div>

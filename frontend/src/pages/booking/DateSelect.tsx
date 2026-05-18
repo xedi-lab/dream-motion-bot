@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { api } from '../../api/client'
 import { Card } from '../../components/Card'
 import { Loader } from '../../components/Loader'
-import { Button } from '../../components/Button'
 import type { SlotOut } from '../../types'
 import styles from './Booking.module.css'
 
