@@ -184,7 +184,7 @@ export default function App() {
         <button
           className={[styles.homeTab, homeTab === 'about' ? styles.homeTabActive : ''].join(' ')}
           onClick={() => setHomeTab('about')}
-        >О студии</button>
+        >О нас</button>
       </div>
 
       {homeTab === 'book' ? (

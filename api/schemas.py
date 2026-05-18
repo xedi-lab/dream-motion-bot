@@ -102,6 +102,8 @@ class StudioConfig(BaseModel):
     address: Optional[str] = None
     about: Optional[str] = None
     features: Optional[list[str]] = None
+    equipment: Optional[list[dict]] = None
+    working_hours_label: Optional[str] = None
     currency: str
     min_session_hours: float
     price_per_hour: float

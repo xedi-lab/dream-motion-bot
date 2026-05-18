@@ -12,6 +12,8 @@ export interface StudioConfig {
   address?: string
   about?: string
   features?: string[]
+  equipment?: { name: string; desc: string }[]
+  working_hours_label?: string
   currency: string
   min_session_hours: number
   price_per_hour: number
