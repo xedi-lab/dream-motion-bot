@@ -7,18 +7,26 @@ export function setInitData(initData: string) {
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Init-Data': _initData,
-      ...options.headers,
-    },
-  })
+  let res: Response
+  try {
+    res = await fetch(`${BASE}${path}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Init-Data': _initData,
+        ...options.headers,
+      },
+    })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    throw new Error(`Сеть: ${msg} (initData: ${_initData ? _initData.length + 'б' : 'пусто'})`)
+  }
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: res.statusText }))
-    throw new Error(err.detail ?? 'Request failed')
+    const body = await res.text().catch(() => '')
+    let detail = res.status + ' ' + res.statusText
+    try { detail = JSON.parse(body).detail ?? detail } catch { if (body) detail = body }
+    throw new Error(detail)
   }
 
   if (res.status === 204) return undefined as T
