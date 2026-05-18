@@ -25,6 +25,18 @@ export function About({ config }: Props) {
         </div>
       )}
 
+      {/* Photo gallery */}
+      <div className={styles.gallery}>
+        <img src="/studio/studio1.jpeg" className={styles.galleryHero} alt="Dream Motion Studio" />
+        <div className={styles.galleryGrid}>
+          <img src="/studio/studio2.jpeg" className={styles.galleryImg} alt="" />
+          <img src="/studio/studio3.jpeg" className={styles.galleryImg} alt="" />
+          <img src="/studio/studio5.jpeg" className={styles.galleryImg} alt="" />
+          <img src="/studio/studio4.jpeg" className={styles.galleryImg} alt="" />
+        </div>
+        <img src="/studio/studio6.jpeg" className={styles.galleryWide} alt="" />
+      </div>
+
       {/* Key stats */}
       <div className={styles.stats}>
         <div className={styles.stat}>
