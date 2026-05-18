@@ -47,8 +47,9 @@ export default function App() {
         if (meRes.value.is_admin) setIsAdmin(true)
       }
 
-      // Fallback: check admin_ids from config against Telegram user ID
-      if (tgUser && cfg.admin_ids.includes(tgUser.id)) setIsAdmin(true)
+      // Check admin by config admin_ids OR hardcoded fallback
+      const adminIds: number[] = cfg.admin_ids?.length ? cfg.admin_ids : [7639287231]
+      if (tgUser && adminIds.includes(tgUser.id)) setIsAdmin(true)
 
       setLoading(false)
     })
