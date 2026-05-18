@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.backBtn,
+.themeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition: background var(--transition), color var(--transition);
+}
+
+.backBtn:hover,
+.themeBtn:hover {
+  background: var(--surface-hover);
+}

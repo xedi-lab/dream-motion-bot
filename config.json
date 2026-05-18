@@ -1,0 +1,13 @@
+{
+  "studio_name": "Dream Motion",
+  "city": "Санкт-Петербург",
+  "currency": "₽",
+  "min_session_hours": 1,
+  "price_per_hour": 1000,
+  "price_per_hour_with_engineer": 1500,
+  "working_hours": {
+    "from": 10,
+    "to": 23
+  },
+  "admin_ids": []
+}

@@ -1,0 +1,183 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.groupLabel {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  padding: 0 4px;
+}
+
+.empty {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 32px 0;
+}
+
+/* ── Booking row ── */
+.bookingRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.bookingDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 38px;
+  padding: 6px 6px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--text-secondary);
+  gap: 2px;
+}
+
+.bookingDate strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.bookingInfo { flex: 1; }
+
+.bookingUser {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.bookingMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.bookingPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actionBtn {
+  padding: 10px !important;
+  font-size: 13px !important;
+}
+
+.commentInput {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+}
+.commentInput:focus { border-color: var(--accent); }
+.commentInput::placeholder { color: var(--text-secondary); }
+
+.statusBadge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.statusBadge[data-status='approved'] { color: var(--success); }
+.statusBadge[data-status='rejected'] { color: var(--danger); }
+.statusBadge[data-status='cancelled'] { color: var(--text-secondary); }
+
+/* ── Slot manager ── */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.formInput {
+  padding: 9px 10px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+}
+.formInput:focus { border-color: var(--accent); }
+
+.addBtn { margin-top: 4px !important; }
+
+.errorMsg {
+  font-size: 13px;
+  color: var(--danger);
+  margin-bottom: 8px;
+}
+
+.slotCard { padding: 12px 16px !important; }
+
+.slotRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slotTime {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+
+.slotStatus {
+  font-size: 12px;
+  font-weight: 500;
+}
+.avail { color: var(--success); }
+.unavail { color: var(--text-secondary); }
+
+.slotActions {
+  display: flex;
+  gap: 4px;
+}
+
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: background var(--transition), color var(--transition);
+}
+.iconBtn:hover { background: var(--surface-hover); color: var(--text); }
+.iconBtnDanger:hover { color: var(--danger) !important; }

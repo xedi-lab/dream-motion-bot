@@ -1,0 +1,31 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.clickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.clickable:hover {
+  background: var(--surface-hover);
+}
+
+.clickable:active {
+  transform: scale(0.98);
+}
+
+.active {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
