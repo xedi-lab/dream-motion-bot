@@ -14,7 +14,7 @@ router = Router()
 
 MINI_APP_URL = os.getenv("MINI_APP_URL", "")
 
-CONFIG_PATH = os.getenv("CONFIG_PATH", "../config.json")
+CONFIG_PATH = os.getenv("CONFIG_PATH", "/app/config.json")
 
 
 def load_config() -> dict:
